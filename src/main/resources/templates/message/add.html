@@ -6,6 +6,9 @@
     </head>
     <body>
         <div layout:fragment="content">
+            <h2>This is add.html</h2>
+            Clear text:
+            <div th:text="${message.clearText}" />
             <div class="d-flex flex-wrap mb-4">
                 <h1 th:text="#{message.add.headline}" class="flex-grow-1" />
                 <div>

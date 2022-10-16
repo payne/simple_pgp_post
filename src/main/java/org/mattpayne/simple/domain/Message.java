@@ -38,6 +38,9 @@ public class Message {
     @Column(nullable = false)
     private String body;
 
+    @Column(nullable = false)
+    private String clearText;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private OffsetDateTime dateCreated;

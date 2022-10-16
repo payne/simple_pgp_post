@@ -14,4 +14,6 @@ public class MessageDTO {
     @NotNull
     private String body;
 
+    private String clearText;
+
 }

@@ -36,7 +36,8 @@ public class MessageService {
     public Long create(final MessageDTO messageDTO) {
         final Message message = new Message();
         mapToEntity(messageDTO, message);
-        return messageRepository.save(message).getId();
+        // TODO(MGP): Finish tearing out the datbase stuff
+        return 42L; //  return messageRepository.save(message).getId();
     }
 
     public void update(final Long id, final MessageDTO messageDTO) {

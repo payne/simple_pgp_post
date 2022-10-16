@@ -3,6 +3,7 @@ package org.mattpayne.simple.controller;
 import javax.validation.Valid;
 import org.mattpayne.simple.model.MessageDTO;
 import org.mattpayne.simple.service.MessageService;
+import org.mattpayne.simple.service.PgpService;
 import org.mattpayne.simple.util.WebUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +21,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MessageController {
 
     private final MessageService messageService;
+    private final PgpService pgpService;
 
-    public MessageController(final MessageService messageService) {
+    public MessageController(final MessageService messageService, PgpService pgpService) {
         this.messageService = messageService;
+        this.pgpService = pgpService;
     }
 
     @GetMapping
@@ -42,9 +45,11 @@ public class MessageController {
         if (bindingResult.hasErrors()) {
             return "message/add";
         }
+        messageDTO.setClearText(pgpService.decrypt(messageDTO.getBody()));
         messageService.create(messageDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("message.create.success"));
-        return "redirect:/messages";
+        return "message/add";
+        // return "redirect:/messages";
     }
 
     @GetMapping("/edit/{id}")

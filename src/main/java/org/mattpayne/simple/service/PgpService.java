@@ -18,9 +18,14 @@ public class PgpService {
         sop = new SOPImpl();
     }
 
-    public String decrypt(String encryptedString) throws IOException {
+    public String decrypt(String encryptedString) {
         String privateKey = getResourceFileAsString("bob.key");
-        return decrypt(encryptedString, privateKey);
+        try {
+            return decrypt(encryptedString, privateKey);
+        } catch (IOException e) {
+            e.printStackTrace(); // TODO(MGP): Use lombok to add log42j
+            return "Could not decrypt message.";
+        }
     }
 
     String decrypt(String encryptedString, String privateKey) throws IOException {
